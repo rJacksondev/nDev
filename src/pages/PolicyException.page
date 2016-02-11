@@ -1,0 +1,105 @@
+<apex:page controller="PolicyExceptions" Tabstyle="Account">
+<apex:form >
+<apex:outputPanel id="theForm">
+
+    <apex:sectionHeader title="Policy Exceptions for: {!loanName} "/>
+    <apex:pageMessages ></apex:pageMessages>
+	
+    <apex:pageBlock Title="Available Policy Exceptions">
+    <p>
+        Check the box next to the Policy Exception or Exceptions that apply to the loan.
+    </p>
+    <br />
+        
+    <table cellpadding="5" border="0">
+        <tr>
+        	<th></th>
+            <th>Exception</th>
+            <th>Relationship</th>
+            <th>Mitigating Factor</th>
+            <th>Mitigating Comments</th>
+        </tr>
+		<apex:repeat value="{!PolicyExceptions}" var="pe">
+        	<tr>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+                    <apex:inputCheckbox value="{!pe.selected}" id="checkedone">
+                        <apex:actionSupport event="onclick" action="{!GetSelected}" rerender="Selected_PBS"/>
+                    </apex:inputCheckbox>
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+                    {!pe.polException.Description__c}
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+                    <apex:selectList styleClass="form-control" value="{!newEntity}" size="1" rendered="true">
+                        <apex:selectOptions value="{!Entities}"/>
+                    </apex:selectList>
+                    <!--<apex:selectList size="1" value="{!pe.selectedEntity}">
+                        <apex:selectOptions value="{!pe.availableEntities}" />
+                    </apex:selectList>-->
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;" width="110">
+                    <apex:selectList size="1" value="{!pe.mFactor}" style="width:110px;">                        
+                        <apex:selectOptions value="{!pe.mitigatingFactors}" />
+                    </apex:selectList>
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+			            <apex:inputTextarea value="{!pe.mitigantComments}" cols="50" rows="3"/>
+                    	<i style="font-size:10px;"><apex:outputText value="(required)" rendered="{!pe.polException.Require_Mitigating_Comments__c}" /></i>
+                </td>
+            </tr>
+        </apex:repeat>        
+    </table>
+<br />
+    <apex:commandButton action="{!createExceptions}" value="Add Exception(s)" /> - <a href="/{!CurrentLoanId}">Cancel</a>        
+</apex:pageBlock>
+    
+<apex:pageBlock Title="Existing Policy Exceptions">
+	<apex:outputPanel rendered="{!ExistingPolicies != null}">
+    <p>
+        Below are a list of Policy Exceptions which have already been applied to the loan and/or its entities.
+    </p>
+        
+    <table cellpadding="5" border="0">
+        <tr>
+            <th>Exception</th>
+            <th>Relationship</th>
+            <th>Mitigating Factor</th>
+            <th>Mitigating Comments</th>
+        </tr>
+		<apex:repeat value="{!ExistingPolicies}" var="pe">
+        	<tr>
+                <td style="border-bottom: 1px solid #e4e4e4;" width="200">
+                    <apex:outputText value="{!pe.Description__c}" />
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+                    <apex:outputText value="{!pe.Account__r.Name}" />
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+                    <apex:outputText value="{!pe.Mitigating_Factors__c}" />
+                </td>
+                <td style="border-bottom: 1px solid #e4e4e4;">
+                    <apex:outputText value="{!pe.Mitigation_Comments__c}" />
+                </td>
+            </tr>
+        </apex:repeat>        
+    </table>
+        
+    </apex:outputPanel>
+	<apex:outputPanel rendered="{!ExistingPolicies = null}">
+    You have not currently added any Policy Exceptions to this loan or its entities.
+    </apex:outputPanel>
+</apex:pageBlock>
+</apex:outputPanel>
+</apex:form>
+    <script>
+    function checkAll(cb)
+    {
+        var inputElem = document.getElementsByTagName("input");
+        for(var i=0; i<inputElem.length; i++)
+        {
+            if(inputElem[i].id.indexOf("checkedone")!=-1)
+                inputElem[i].checked = cb.checked;
+        }
+    }    
+    </script>
+</apex:page>

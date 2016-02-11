@@ -1,0 +1,247 @@
+<apex:page controller="NewRiskRatingReviewSelectionController" ShowHeader="false" sidebar="false" standardStylesheets="true" title="{!$Label.RRR_Title}" showChat="true">
+    
+    <nDESIGN:Includes enableBootstrap3="true" enableBS3Namespace="true" enableFontAwesome="true" />
+
+    <!-- Style Sheets in this Section -->
+        <style type="text/css">
+            .spacing {
+                padding-bottom: 30px;
+            }
+            .extraspacing {
+                padding-bottom: 5px;
+            }
+            .extraspacing2 {
+                padding-bottom: 15px;
+            }
+            .align{
+                vertical-align: middle;
+            }
+        </style>
+    <!-- END Style Sheets Section -->
+
+    <!-- Javascript Section -->
+    <apex:outputPanel id="jscript">
+        <script type="text/javascript">
+            jQuery(document).ready(function(){
+                jQuery(".generate").attr("disabled", "disabled");
+                jQuery(".picklist").change(function() {
+                    var relid = jQuery( ".relationshippicklist" ).val();
+                    var template = jQuery( ".templatepicklist" ).val();
+                    if (relid == 'None' || template == 'None') {
+                        jQuery(".generate").attr("disabled", "disabled");
+                    } else {
+                        jQuery(".generate").removeAttr("disabled");
+                    }
+                    
+                });
+            });
+
+            jQuery(document).ready(function(){
+                    var relid2 = jQuery( ".relationshippicklist2" ).val();
+                    var template2 = jQuery( ".templatepicklist2" ).val();
+                    if (relid2 == 'None' || template2 == 'None') {
+                        jQuery(".generate2").attr("disabled", "disabled");
+                    } else {
+                        jQuery(".generate2").removeAttr("disabled");
+                    }
+                jQuery(".picklist2").change(function() {
+                    var relid = jQuery( ".relationshippicklist2" ).val();
+                    var template = jQuery( ".templatepicklist2" ).val();
+                    if (relid == 'None' || template == 'None') {
+                        jQuery(".generate2").attr("disabled", "disabled");
+                    } else {
+                        jQuery(".generate2").removeAttr("disabled");
+                    }
+                    
+                });
+            });
+            
+            jQuery(document).ready(function(){
+                    var template2 = jQuery( ".templatepicklist3" ).val();
+                    if (template2 == 'None') {
+                        jQuery(".generate3").attr("disabled", "disabled");
+                    } else {
+                        jQuery(".generate3").removeAttr("disabled");
+                    }
+                jQuery(".picklist3").change(function() {
+                    var template = jQuery( ".templatepicklist3" ).val();
+                    if (template == 'None') {
+                        jQuery(".generate3").attr("disabled", "disabled");
+                    } else {
+                        jQuery(".generate3").removeAttr("disabled");
+                    }
+                    
+                });
+            });
+        </script>
+    </apex:outputPanel>
+    <!-- END Javascript Section -->
+
+    <div class="force">
+        <nDESIGN:Navigation currentAppName="Bankr_Base_Installation" />
+        
+        <apex:form id="theform">
+            <div class="container-fluid">
+
+                <div class="row extraspacing">
+                    <div class="col-xs-offset-3 col-xs-6">
+                        <apex:pageMessages />
+                    </div>
+                </div>
+
+                <apex:outputPanel rendered="{!type1}">
+                    <div class="row">
+                        <div class="col-xs-12 extraspacing2">
+                            <i class="glyphicon glyphicon-circle-arrow-left"></i> <a href="/{!theID}">{!$Label.RRR_Back_Button}{!singleLoanName}</a>
+                        </div>
+                        <div class="col-xs-12 extraspacing2">
+                            <h3>{!$Label.RRR_Page_Header}</h3>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-xs-12 extraspacing">
+                            <p>{!$Label.RRR_Page_Sub_Header}</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group spacing">
+                                    <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Loan_Label}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="loanname" value="{!singleLoanName}" class="form-control" disabled="disabled" />
+                                    </div>
+                                </div>
+                                <div class="form-group spacing">
+                                    <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Relationship_Label}</label>
+                                    <div class="col-sm-10">
+                                        <apex:selectList styleClass="form-control picklist relationshippicklist" value="{!RelationshipID}" size="1">
+                                            <apex:selectOptions value="{!Relationships}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                                <div class="form-group spacing">
+                                    <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Risk_Grade_Template_Label}</label>
+                                    <div class="col-sm-10">
+                                        <apex:selectList styleClass="form-control picklist templatepicklist" size="1" value="{!RiskGrade}">
+                                            <apex:selectOptions value="{!TemplatePicklist}"/>
+                                        </apex:selectList>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <apex:commandLink styleClass="btn btn-success center" value="{!$Label.RRR_Generate_Button_Label}" action="{!Create}" target="_top"/>
+                                        <!--<apex:commandButton value="{!$Label.RRR_Generate_Button_Label}" action="{!Create}" status="generatestatus" reRender="jscript" styleClass="btn btn-success generate">-->
+                                            <apex:actionStatus id="generatestatus">
+                                                <apex:facet name="start">
+                                                    <img src="/img/loading.gif"/>
+                                                </apex:facet>
+                                            </apex:actionStatus>
+                                        <!--</apex:commandButton>-->
+                                        &nbsp;&nbsp;&nbsp;
+                                        <apex:commandLink action="/{!theID}" value="{!$Label.RRR_Cancel_Link_Label}"></apex:commandLink>
+                                    </div>
+                                </div>
+                            </form>                     
+                        </div>
+                    </div>
+                </apex:outputPanel>
+    
+                <apex:outputPanel rendered="{!type2}">
+                    <div class="row">
+                        <div class="col-xs-12 extraspacing2">
+                            <i class="glyphicon glyphicon-circle-arrow-left"></i> <a href="/{!theID}">{!$Label.RRR_Back_Button}{!singleRelationshipName}</a>
+                        </div>
+                        <div class="col-xs-12 extraspacing2">
+                            <h3>{!$Label.RRR_Page_Header}&nbsp;&nbsp;<small><apex:commandLink value="{!$Label.RRR_Reset_Button_Label}" action="{!Reset}" reRender="theform, jscript" rendered="{!AccountSelection = false}"/></small></h3>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <div class="col-xs-12 extraspacing">
+                            <p>{!$Label.RRR_Page_Sub_Header}</p>
+                        </div>
+                        <div class="col-xs-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group spacing">
+                                    <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Relationship_Label}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" id="relationshipname" value="{!singleRelationshipName}" class="form-control" disabled="disabled" />
+                                    </div>
+                                </div>
+                                
+                                <apex:outputPanel rendered="{!AccountSelection }">
+                                    <div class="form-group spacing">
+                                        <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Account_Select}</label>
+                                        <div class="col-sm-10">
+                                            <apex:selectList value="{!CreateBy }" styleClass="form-control" size="1">
+                                                <apex:selectOptions value="{!CreateByAccountPicklist}" />
+                                                <apex:actionSupport event="onchange" action="{!AccountSelection}" reRender="theform, jscript"/>
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!AccountLoan}">
+                                    <div class="form-group spacing">
+                                        <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Loan_Label}</label>
+                                        <div class="col-sm-10">
+                                            <apex:selectList styleClass="form-control picklist2 relationshippicklist2" value="{!LoanID}" size="1">
+                                                <apex:selectOptions value="{!Loans}"/>
+                                                <apex:actionSupport event="onchange" action="{!LoanSelection}" reRender="theform, jscript"/>
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                    <div class="form-group spacing">
+                                        <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Risk_Grade_Template_Label}</label>
+                                        <div class="col-sm-10">
+                                            <apex:selectList styleClass="form-control picklist2 templatepicklist2" size="1" value="{!RiskGrade}">
+                                                <apex:selectOptions value="{!TemplatePicklist}"/>
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <apex:commandButton value="{!$Label.RRR_Generate_Button_Label}" action="{!CreateFromRelationship}" status="generatestatus2" reRender="theform" styleClass="btn btn-success generate2">
+                                                <apex:actionStatus id="generatestatus2">
+                                                    <apex:facet name="start">
+                                                        <img src="/img/loading.gif"/>
+                                                    </apex:facet>
+                                                </apex:actionStatus>
+                                            </apex:commandButton>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <apex:commandLink action="/{!theID}" value="{!$Label.RRR_Cancel_Link_Label}"></apex:commandLink>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel rendered="{!AccountOnly}">
+                                    <div class="form-group spacing">
+                                        <label class="col-sm-2 control-label text-right align">{!$Label.RRR_Risk_Grade_Template_Label}</label>
+                                        <div class="col-sm-10">
+                                            <apex:selectList styleClass="form-control picklist3 templatepicklist3" size="1" value="{!RiskGrade}">
+                                                <apex:selectOptions value="{!AccountTemplatePicklist}"/>
+                                            </apex:selectList>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-2 col-sm-10">
+                                            <apex:commandButton value="{!$Label.RRR_Generate_Button_Label}" action="{!CreateFromRelationshipOnly}" status="generatestatus3" reRender="theform" styleClass="btn btn-success generate3">
+                                                <apex:actionStatus id="generatestatus3">
+                                                    <apex:facet name="start">
+                                                        <img src="/img/loading.gif"/>
+                                                    </apex:facet>
+                                                </apex:actionStatus>
+                                            </apex:commandButton>
+                                            &nbsp;&nbsp;&nbsp;
+                                            <apex:commandLink action="/{!theID}" value="{!$Label.RRR_Cancel_Link_Label}"></apex:commandLink>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </form>
+                        </div>
+                    </div>
+                </apex:outputPanel>
+            </div>
+        </apex:form>
+    </div>
+</apex:page>

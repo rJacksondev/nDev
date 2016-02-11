@@ -1,0 +1,74 @@
+<apex:page sidebar="false" docType="html-5.0" standardController="LLC_BI__Loan__c" extensions="PaymentCalculatorController" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/bootstrap3/css/bootstrap-force.min.css')}"/>
+    <style>
+        .space1 {
+            margin-top: 2px;
+        }
+        .space2 {
+            margin-top: 16px;
+        }
+    </style>
+    <apex:form >
+        <div class="force">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="well">
+                        <center>
+                            <div class="space1">
+                                <span class="h4"><strong>Payment Calculator</strong></span>
+                            </div>
+                        </center>
+                        <apex:outputPanel rendered="{!prinAndInt == false && prinPlusInt == false && intOnly == false}">
+                            Payment calculator has not been configured for the selected payment type.
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(loanAMT == false || intRate == false || amTerm == false, true, false)}">
+                            Please ensure that you have set a Loan Amount, Interest Rate, and Amortized Term.
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!IF(loanAMT == true && intRate == true && amTerm == true && (prinAndInt == true || prinPlusInt == true || intOnly == true), true, false)}">
+                            <table class="table table-bordered space2"> 
+                                <tbody>
+                                    <tr>
+                                        <th>Loan Amount</th>
+                                        <td class="active">
+                                            <apex:outputField value="{!LLC_BI__Loan__c.LLC_BI__Amount__c}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Interest Rate</th>
+                                        <td class="active">
+                                            <apex:outputField value="{!LLC_BI__Loan__c.LLC_BI__InterestRate__c}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Number of Payments</th>
+                                        <td class="active">
+                                            <apex:outputField value="{!LLC_BI__Loan__c.LLC_BI__Amortized_Term_Months__c}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Payment Amount</th>
+                                        <td class="success">
+                                            <b><apex:outputText value="{0, number, currency}">
+                                                <apex:param value="{!showFinalCalculatedAmount}" />
+                                            </apex:outputText></b>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <center>
+                                <apex:commandLink styleClass="btn btn-success center" value="Save for Comparison" action="{!Calculate}" target="_top"/>
+                            </center>
+                            <br/>
+                            <br/>
+                            <em>
+                                * Having a conveniently located payment calculator has proven beneficial to our nCino customers. Calculation variables can be customized to those of your organization. The intent is to create a loan scenario that can be communicated to your customer for pricing comparison purposes. As always, any calculations and assumptions must be reviewed by your compliance team to ensure the validity and consistency of the underlying formulas.
+                            </em>
+                        </apex:outputPanel>
+                    </div>
+            </div>       
+        </div>
+        </div>
+    </apex:form>
+</apex:page>

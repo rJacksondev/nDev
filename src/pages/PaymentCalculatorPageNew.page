@@ -1,0 +1,22 @@
+<apex:page standardController="LLC_BI__Loan__c" extensions="nFORCE.TemplateController">
+
+    <!-- heading -->
+    <apex:composition template="nFORCE__Template_Heading">
+        <apex:define name="left">
+            <span>Payment Calculator</span>
+        </apex:define>
+        <apex:define name="right" />
+    </apex:composition>
+
+    <!-- content -->
+    <apex:composition template="nFORCE__Template_View_1_Column">
+        <apex:define name="column-content">
+            <apex:composition template="nFORCE__Template_View_Container">
+                <apex:define name="content">
+                    <c:PaymentCalculatorComponent />
+                </apex:define>
+            </apex:composition>
+        </apex:define>
+    </apex:composition>
+
+</apex:page>

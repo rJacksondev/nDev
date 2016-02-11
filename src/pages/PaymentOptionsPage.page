@@ -1,0 +1,129 @@
+<apex:page standardController="LLC_BI__Loan__c" extensions="PaymentOptionsController" showHeader="false" sidebar="false">
+   <apex:includeScript value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3/js/bootstrap.min.js')}" />
+   <apex:stylesheet value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3/css/bootstrap-force.min.css')}" />
+   <apex:stylesheet value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3.custom.css')}" />
+   <style>
+      .hidden {
+         display: none;
+      }
+   </style>
+   <apex:form >
+      <div class="force">
+         <div class="col-sm-12">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-xs-12">
+                     <div class="container-fluid">
+                        <div class="row">
+                           <div class="col-xs-12 content-heading">
+                              <div class="visible-md visible-lg pull-left content-heading-left" style="color: #fff;font-size: 14px;">PAYMENT OPTIONS</div>
+                              <div class="visible-md visible-lg pull-right content-heading-right"></div>
+                              <div class="visible-xs visible-sm pull-left content-heading-left" style="color: #fff;font-size: 14px;">PAYMENT OPTIONS</div>
+                              <div class="visible-xs visible-sm pull-right content-heading-right"></div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <apex:composition template="nFORCE__Template_View_1_Column">
+               <apex:define name="column-content">
+                  <apex:outputPanel rendered="{!PaymentOptions.size > 0}">
+                     <table class="table table-condensed">
+                        <thead>
+                           <tr>
+                              <th></th>
+                              <th>Payment Type</th>
+                              <th>Original Amount</th>
+                              <th>Interest Rate</th>
+                              <th>Amortized Term</th>
+                              <th>Payment Amount</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <apex:repeat value="{!PaymentOptions}" var="p">
+                              <tr>
+                                 <td>
+                                    <apex:commandLink value="View" action="{!viewPayment}" target="_blank">
+                                       <apex:param name="contIdParam" value="{!p.Id}" assignTo="{!optionId}"/>
+                                    </apex:commandLink>
+                                    &nbsp;
+                                    <apex:outputText > | </apex:outputText>
+                                    &nbsp;&nbsp;
+                                    <apex:commandLink value="Select" action="{!selectPayment}" style="color: #fff;" styleClass="btn btn-primary" target="_parent">
+                                       <apex:param name="contIdParam" value="{!p.Id}" assignTo="{!optionId}"/>
+                                    </apex:commandLink>
+                                 </td>
+                                 <td>
+                                    {!p.Payment_Type__c}
+                                 </td>
+                                 <td>
+                                    ${!p.Original_Amount__c}
+                                 </td>
+                                 <td>
+                                    {!p.Interest_Rate__c}
+                                 </td>
+                                 <td>
+                                    {!p.Amortized_Term__c}
+                                 </td>
+                                 <td>
+                                    ${!p.Payment_Amount__c}
+                                 </td>
+                                    <!-- <td style="border-bottom: 1px solid #e4e4e4;"></td> -->
+                              </tr>
+                           </apex:repeat>      
+                        </tbody>    
+                     </table>
+                  </apex:outputPanel>
+                  <apex:outputPanel rendered="{!PaymentOptions.size == 0}">
+                     <div>No Payment Options have been created yet.</div>
+                  </apex:outputPanel>
+               </apex:define>
+            </apex:composition>
+         </div>
+      </div>
+   </apex:form>
+</apex:page>
+<!--<apex:page standardController="LLC_BI__Loan__c" extensions="PaymentOptionsController" showHeader="false" sidebar="false">
+   <apex:includeScript value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3/js/bootstrap.min.js')}" />
+   <apex:stylesheet value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3/css/bootstrap-force.min.css')}" />
+   <apex:stylesheet value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3.custom.css')}" />
+   <style>
+      .hidden {
+         display: none;
+      }
+   </style>
+   <apex:form >
+      <div class="force">
+         <div class="col-sm-12">
+            <apex:composition template="nFORCE__Template_View_1_Column">
+               <apex:define name="column-content">
+                  <apex:pageBlock >
+                     <apex:pageBlockTable styleClass="table table-hover" value="{!PaymentOptions}" var="p" id="optionTable">
+                        <apex:column style="padding:10px 10px 10px 10px;">
+                           <apex:commandLink value="View" action="{!viewPayment}" target="_blank">
+                               <apex:param name="contIdParam" value="{!p.Id}" assignTo="{!optionId}"/>
+                           </apex:commandLink>
+                           &nbsp;
+                           <apex:outputText > | </apex:outputText>
+                           &nbsp;
+                           <apex:commandLink value="Select" action="{!selectPayment}" styleClass="btn" style="font-weight:bold;font-size:.9em;text-decoration:none;padding:4px 3px;" target="_parent">
+                               <apex:param name="contIdParam" value="{!p.Id}" assignTo="{!optionId}"/>
+                           </apex:commandLink>
+                        </apex:column>
+                        <apex:column value="{!p.Payment_Type__c}" />
+                        <apex:column value="{!p.Original_Amount__c}" />
+                        <apex:column value="{!p.Interest_Rate__c}" />
+                        <apex:column value="{!p.Amortized_Term__c}" />
+                        <apex:column value="{!p.Payment_Amount__c}" />
+                     </apex:pageBlockTable>
+                     <apex:outputPanel rendered="{!PaymentOptions.size == 0}">
+                        <div>No Payment Options have been created yet.</div>
+                     </apex:outputPanel>
+                  </apex:pageBlock>
+               </apex:define>
+            </apex:composition>
+         </div>
+      </div>
+   </apex:form>
+</apex:page>-->

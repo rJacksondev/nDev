@@ -1,0 +1,4 @@
+<apex:page standardController="CreditMemo__c" >
+	<apex:iframe src="{!$Page.LLC_BI__RiskGradeReview}?id={!CreditMemo__c.Risk_Rating_Review__c}" 
+		rendered="{!CreditMemo__c.Risk_Rating_Review__c != null}"/>
+</apex:page>

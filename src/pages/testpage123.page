@@ -1,0 +1,172 @@
+<apex:page controller="PolicyExceptions" ShowHeader="false" sidebar="false" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/bootstrap3/css/bootstrap.min.css')}"/>
+    <style>
+    </style>
+    <div id="load_scrl" class="loadingBox loader" style="display:none"></div>
+    <div class="loadingBox overlay"></div>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img src="https://c.na14.content.force.com/servlet/servlet.ImageServer?id=015d0000002pgDR&oid=00Dd0000000hi2e" height="100%" width="60%" />
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="glyphicon glyphicon-user"></i>
+                        {!ProfileName}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="/home/home.jsp"><i class="glyphicon glyphicon-home"></i>Home</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/secur/logout.jsp"><i class="glyphicon glyphicon-log-out"></i>Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <apex:form >
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <i class="glyphicon glyphicon-circle-arrow-left"></i>
+                    <a href="/{!CurrentLoanId}">Back To {!CurrentLoanName}</a>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <span class="h4">
+                                    Available Policy Exceptions
+                                </span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <p>Check the box next to the Policy Exception or Exceptions that apply to the loan.</p>
+                            <div class="well">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Exception</th>
+                                            <th>Relationship</th>
+                                            <th>Mitigating Factor</th>
+                                            <th>Mitigating Comments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!PolicyExceptions}" var="p">
+                                            <tr>
+                                                <!--<td style="border-bottom: 1px solid #e4e4e4;">
+                                                    <apex:inputCheckbox value="{!p.selected}" id="checkedone">
+                                                        <apex:actionSupport event="onclick" action="{!GetSelected}" rerender="Selected_PBS"/>
+                                                    </apex:inputCheckbox>
+                                                </td>
+                                                <td style="border-bottom: 1px solid #e4e4e4;">
+                                                    {!p.Description__c}
+                                                </td>
+                                                <td style="border-bottom: 1px solid #e4e4e4;">
+                                                    <apex:selectList size="1" value="{!p.selectedEntity}">
+                                                        <apex:selectOptions value="{!p.Entities}" />
+                                                    </apex:selectList>
+                                                </td>
+                                                <td style="border-bottom: 1px solid #e4e4e4;" width="110">
+                                                    <apex:selectList size="1" value="{!p.selectedFactor}" style="width:110px;">                        
+                                                        <apex:selectOptions value="{!p.Factors}" />
+                                                    </apex:selectList>
+                                                </td>
+                                                <td style="border-bottom: 1px solid #e4e4e4;">
+                                                    <apex:inputTextarea value="{!p.selectedComments}" rows="3"/>
+                                                </td>-->
+                                            </tr>
+                                        </apex:repeat>      
+                                    </tbody>    
+                                </table>
+                            </div>
+                            <!-- <apex:commandLink styleClass="btn btn-success center" value="Add Exception(s)" action="{!createExceptions}" target="_top"/> - <a href="/{!CurrentLoanId}">Cancel</a>  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <span class="h4">
+                                    Existing Policy Exceptions
+                                </span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <apex:outputPanel rendered="{!ExistingPolicies != null}">
+                                <p>Below are a list of Policy Exceptions which have already been applied to the loan and/or its entities.</p>
+                                <div class="well">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <th>Exception</th>
+                                            <th>Relationship</th>
+                                            <th>Mitigating Factor</th>
+                                            <th>Mitigating Comments</th>
+                                        </tr>
+                                        <apex:repeat value="{!ExistingPolicies}" var="e">
+                                            <tr>
+                                                <td width="200">
+                                                    <apex:outputText value="{!e.Description__c}" />
+                                                </td>
+                                                <td>
+                                                    <apex:outputText value="{!e.Account__r.Name}" />
+                                                </td>
+                                                <td style="border-bottom: 1px solid #e4e4e4;">
+                                                    <apex:outputText value="{!e.Mitigating_Factors__c}" />
+                                                </td>
+                                                <td>
+                                                    <apex:outputText value="{!e.Mitigation_Comments__c}" />
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>        
+                                    </table>
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!existingPolicies == null}">
+                                You have not currently added any Policy Exceptions to this loan or its entities.
+                            </apex:outputPanel>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <apex:actionStatus id="loading" onstart="loading(true)" onstop="loading(false)"/>
+    </apex:form>
+    <apex:includeScript value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/jquery/js/jquery.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/bootstrap3/js/bootstrap.min.js')}"/>
+    <apex:outputPanel id="jscript">
+        <script>
+            function loading(val) {
+                if (val) {
+                    $('#load_scrl').css('top', $(document).scrollTop() + 200);
+                    $('.loadingBox').show();
+                } else {
+                    $('.loadingBox').hide();
+                }
+            }
+            function checkAll(cb) {
+                var inputElem = document.getElementsByTagName("input");
+                for(var i=0; i<inputElem.length; i++)
+                {
+                    if(inputElem[i].id.indexOf("checkedone")!=-1)
+                        inputElem[i].checked = cb.checked;
+                }
+            }    
+        </script>
+    </apex:outputPanel>
+</apex:page>

@@ -1,0 +1,72 @@
+<apex:page sidebar="false" docType="html-5.0" standardController="Payment_Option__c" extensions="AmortizationScheduleController" standardStylesheets="false">
+    <apex:stylesheet value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/bootstrap3/css/bootstrap-force.min.css')}"/>
+    <style>
+        .warning {
+            font-weight: normal;
+            color: #222;
+        }
+    </style>
+    <apex:form >
+        <div class="force">
+        <div class="row">
+            <div class="col-xs-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <span class="h4"></span>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Payment Number</th>
+                                        <th>Payment Date</th>
+                                        <th>Payment</th>
+                                        <th>Interest</th>
+                                        <th>Principal</th>
+                                        <th>Beginning Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <apex:repeat value="{!ScheduleRow}" var="r">
+                                        <tr>
+                                            <td>
+                                                {!r.row}
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="{0,date,MM'/'dd'/'yyyy}">
+                                                    <apex:param value="{!r.paymentDate}"/>
+                                                </apex:outputText>
+                                            </td>
+                                            <td>
+                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">  
+                                                    <apex:param value="{!r.paymentAmount}"/>  
+                                                </apex:outputText>
+                                            </td>
+                                            <td class="warning">
+                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">  
+                                                    <apex:param value="{!r.interestAmount}"/>  
+                                                </apex:outputText>
+                                            </td>
+                                            <td class="success">
+                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">  
+                                                    <apex:param value="{!r.principalAmount}"/>  
+                                                </apex:outputText>
+                                            </td>
+                                            <td class="danger">
+                                                <apex:outputText value="${0, number, ###,###,###,##0.00}">  
+                                                    <apex:param value="{!r.balanceAmount}"/>  
+                                                </apex:outputText>
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            </div>       
+        </div>
+        </div>
+    </apex:form>
+</apex:page>

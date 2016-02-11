@@ -1,0 +1,82 @@
+<apex:component controller="PaymentCalculatorController" layout="none" allowDML="True">
+   <apex:stylesheet value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/bootstrap3/css/bootstrap-force.min.css')}"/>
+   <style>
+      .space1 {
+         margin-top: 2px;
+      }
+      .space2 {
+         margin-top: 16px;
+      }
+   </style>
+   <apex:form >
+     <apex:outputPanel Id="PaymentSuccess">
+      <div class="force">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="well">
+                <center>
+                    <div class="space1">
+                        <span class="h4"><strong>Payment Calculator</strong></span>
+                    </div>
+                </center>
+                   <!-- <apex:outputPanel rendered="{!prinAndInt == false && prinPlusInt == false && intOnly == false}"> -->
+                   <apex:outputPanel rendered="{!wrongPaymentType}">
+                      Payment calculator has not been configured for the selected payment type.
+                   </apex:outputPanel>
+                   <!-- <apex:outputPanel rendered="{!IF(loanAMT == false || intRate == false || amTerm == false, true, false)}"> -->
+                   <apex:outputPanel rendered="{!missingFields}">
+                      Please ensure that you have set a Loan Amount, Interest Rate, and Amortized Term.
+                   </apex:outputPanel>
+                   <!-- <apex:outputPanel rendered="{!IF(loanAMT == true && intRate == true && amTerm == true && (prinAndInt == true || prinPlusInt == true || intOnly == true), true, false)}"> -->
+                   <apex:outputPanel rendered="{!showCalculator}">
+                      <table class="table table-bordered space2"> 
+                         <tbody>
+                            <tr>
+                               <th>Loan Amount</th>
+                               <td class="active">
+                                   {!amount}
+                               </td>
+                            </tr>
+                            <tr>
+                               <th>Interest Rate</th>
+                               <td class="active">
+                                   {!rate}
+                               </td>
+                            </tr>
+                            <tr>
+                               <th>Number of Payments</th>
+                               <td class="active">
+                                   {!term}
+                               </td>
+                            </tr>
+                         </tbody>
+                         <tfoot>
+                            <tr>
+                               <th>Payment Amount</th>
+                               <td class="success">
+                                  <b>
+                                    <apex:outputText value="{0, number, currency}">
+                                     <apex:param value="{!showFinalCalculatedAmount}" />
+                                     </apex:outputText>
+                                  </b>
+                               </td>
+                            </tr>
+                         </tfoot>
+                      </table>
+                    </apex:outputPanel>
+               </div>
+            </div>       
+         </div>
+      </div>
+               <apex:outputPanel >
+                           <center>
+                          <apex:commandButton styleClass="btn btn-success center" value="Save for Comparison" action="{!Calculate}" reRender="PaymentSuccess"/>
+                       </center>
+                       <br/><br/>
+                       <em>
+                          * Having a conveniently located payment calculator has proven beneficial to our nCino customers. Calculation variables can be customized to those of your organization. The intent is to create a loan scenario that can be communicated to your customer for pricing comparison purposes. As always, any calculations and assumptions must be reviewed by your compliance team to ensure the validity and consistency of the underlying formulas.
+                       </em>
+         </apex:outputPanel>
+     </apex:outputPanel>
+   </apex:form>
+</apex:component>
