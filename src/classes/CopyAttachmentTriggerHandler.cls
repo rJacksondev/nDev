@@ -107,7 +107,7 @@ public with sharing class CopyAttachmentTriggerHandler {
                 Database.update(results);
 
             } catch (DMLException e) {
-                System.debug('The following exception has occurred with the loan update: ' + e.getMessage());
+                system.debug('*** There was a problem with the loan update');
             }
 
         } else if (packageFieldCount > 0) {
@@ -128,7 +128,7 @@ public with sharing class CopyAttachmentTriggerHandler {
                 Database.update(results);
 
             } catch (DMLException e) {
-                System.debug('The following exception has occurred with the package update: ' + e.getMessage());
+                system.debug('*** There was a problem with the package update');
             }
         }
     }

@@ -1,5 +1,5 @@
 public class PaymentCalculatorController {
-
+   
    public Boolean prinAndInt  { get; set; }
    public Boolean prinPlusInt { get; set; } 
    public Boolean intOnly     { get; set; }
@@ -7,120 +7,9 @@ public class PaymentCalculatorController {
    public Boolean intRate     { get; set; } 
    public Boolean amTerm      { get; set; }
    public Boolean elseFlag    { get; set; }
-   public Decimal amount      { get; set; }
-   public Decimal rate        { get; set; }
-   public Decimal term        { get; set; }
    public Id objId = ApexPages.currentPage().getParameters().get('id');
    public Decimal showFinalCalculatedAmount { get; set; }
    public String saveLink                   { get; set; }
-
-   public PaymentCalculatorController() {
-      Decimal loanAmount = 0;
-      Decimal interestRateBefore = 0;
-      Decimal interestRateAfter = 0;
-      Integer numberOfPayments = 0;
-      String paymentType = null;
- 
-      LLC_BI__Loan__c l = [SELECT
-            Id,
-            LLC_BI__Amount__c,
-            LLC_BI__InterestRate__c,
-            LLC_BI__Amortized_Term_Months__c,
-            LLC_BI__Payment_Type__c
-         FROM
-            LLC_BI__Loan__c
-         WHERE
-            Id =: objId];
-            
-      amount = l.LLC_BI__Amount__c; 
-      rate = l.LLC_BI__InterestRate__c;
-      term = l.LLC_BI__Amortized_Term_Months__c;
- 
-      if (l.LLC_BI__Payment_Type__c == 'Principal+Interest') {
-
-         prinPlusInt = true;
-         if (l.LLC_BI__Amount__c != null) {
-            loanAMT = true;
-            loanAmount = l.LLC_BI__Amount__c;
-         }
-
-         if (l.LLC_BI__InterestRate__c != null) {
-            intRate = true;
-            interestRateBefore = l.LLC_BI__InterestRate__c;
-         }
-
-         if (l.LLC_BI__Amortized_Term_Months__c != null) {
-            amTerm = true;
-            numberOfPayments = Integer.valueOf(l.LLC_BI__Amortized_Term_Months__c);
-         }
-          
-         if (l.LLC_BI__Amount__c != null && l.LLC_BI__InterestRate__c != null && l.LLC_BI__Amortized_Term_Months__c != null) { 
-            Decimal principal = loanAmount / numberOfPayments;
-            Decimal interest = loanAmount * ((interestRateBefore / 12) / 100);
-            Decimal calculatedAmount = principal + interest;
-            showFinalCalculatedAmount = calculatedAmount.setScale(2);
-         }
- 
-      } else if (l.LLC_BI__Payment_Type__c == 'Interest Only' || l.LLC_BI__Payment_Type__c == 'Single Pay') {
-
-         intOnly = true;
-         if (l.LLC_BI__Amount__c != null) {
-            loanAMT = true;
-            loanAmount = l.LLC_BI__Amount__c;
-         }
-
-         if (l.LLC_BI__InterestRate__c != null) {
-            intRate = true;
-            interestRateBefore = l.LLC_BI__InterestRate__c;
-         }
-
-         if (l.LLC_BI__Amortized_Term_Months__c != null) {
-            amTerm = true;
-            numberOfPayments = Integer.valueOf(l.LLC_BI__Amortized_Term_Months__c);
-         }
-
-         if (l.LLC_BI__Amount__c != null && l.LLC_BI__InterestRate__c != null && l.LLC_BI__Amortized_Term_Months__c != null) { 
-            Decimal numeratorFirst = interestRateBefore / 100;
-            Decimal numeratorFinal = loanAmount * numeratorFirst;
-            Decimal denominatorFinal = 12;
-            Decimal calculatedAmount = numeratorFinal / denominatorFinal;
-            showFinalCalculatedAmount = calculatedAmount.setScale(2);
-         }
- 
-      } else if (l.LLC_BI__Payment_Type__c == 'Installment') {
-
-         prinAndInt = true; 
-         if (l.LLC_BI__Amount__c != null) {
-            loanAMT = true;
-            loanAmount = l.LLC_BI__Amount__c;
-         }
-
-         if (l.LLC_BI__InterestRate__c != null) {
-            intRate = true;
-            interestRateBefore = l.LLC_BI__InterestRate__c;
-         }
-
-         if (l.LLC_BI__Amortized_Term_Months__c != null) {
-            amTerm = true;
-            numberOfPayments = Integer.valueOf(l.LLC_BI__Amortized_Term_Months__c);
-         }
-
-         if (l.LLC_BI__Amount__c != null && l.LLC_BI__InterestRate__c != null && l.LLC_BI__Amortized_Term_Months__c != null) { 
-            interestRateAfter = (interestRateBefore / 12) / 100;
-
-            Decimal numeratorFirst = 1 + interestRateAfter;
-            Decimal numeratorSecond = numeratorFirst.pow(numberOfPayments);
-            Decimal numeratorFinal = interestRateAfter * numeratorSecond;
-    
-            Decimal denominatorFirst = 1 + interestRateAfter;
-            Decimal denominatorSecond = denominatorFirst.pow(numberOfPayments);
-            Decimal denominatorFinal = denominatorSecond - 1;
-    
-            Decimal calculatedAmount = loanAmount * (numeratorFinal / denominatorFinal);
-            showFinalCalculatedAmount = calculatedAmount.setScale(2);
-         }
-      }
-   }
  
    public PaymentCalculatorController(ApexPages.StandardController controller) {
  
@@ -227,7 +116,7 @@ public class PaymentCalculatorController {
       }
    }
    
-   public void Calculate() {
+   public PageReference Calculate() {
  
       Decimal loanAmount = 0;
       Decimal interestRateBefore = 0;
@@ -332,33 +221,6 @@ public class PaymentCalculatorController {
          insert option;
       }
  
-      //return new PageReference('/' + objId);
-   }
-
-   public Boolean getWrongPaymentType() {
-      Boolean flag = false;
-      if (prinAndInt == false && prinPlusInt == false && intOnly == false) {
-         flag = true;
-      }
-
-      return flag;
-   }
-
-   public Boolean getMissingFields() {
-      Boolean flag = false;
-      if (loanAMT == false || intRate == false || amTerm == false) {
-         flag = true;
-      }
-
-      return flag;
-   }
-
-   public Boolean getShowCalculator() {
-      Boolean flag = false;
-      if (loanAMT == true && intRate == true && amTerm == true && (prinAndInt == true || prinPlusInt == true || intOnly == true)) {
-         flag = true;
-      }
-
-      return flag;
+      return new PageReference('/' + objId);
    }
 }
