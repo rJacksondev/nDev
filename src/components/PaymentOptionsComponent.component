@@ -1,0 +1,64 @@
+<apex:component controller="PaymentOptionsController" layout="none" allowDML="true">
+    <!--<apex:includeScript value="{!URLFOR($Resource.nFORCE__llc_web_ui, 'bootstrap3/js/bootstrap.min.js')}" />-->
+    <apex:stylesheet value="{!URLFOR($Resource.nDESIGN__llc_web_ui, '/bootstrap3/css/bootstrap-force.min.css')}"/>
+    <style>
+        .hidden {
+           display: none;
+        }
+    </style>
+    <apex:form >
+         <div class="force">
+             <div class="col-sm-12">
+                 <apex:outputPanel rendered="{!showOptions}">
+                     <table class="table table-condensed">
+                         <thead>
+                         <tr>
+                             <th></th>
+                             <th>Payment Type</th>
+                             <th>Original Amount</th>
+                             <th>Interest Rate</th>
+                             <th>Amortized Term</th>
+                             <th>Payment Amount</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                             <apex:repeat value="{!options}" var="p">
+                                 <tr>
+                                     <td>
+                                         <apex:commandLink value="View" action="{!viewPayment}" target="_blank">
+                                             <apex:param name="contIdParam" value="{!p.Id}" assignTo="{!optionId}"/>
+                                         </apex:commandLink>
+                                         &nbsp;
+                                         <apex:outputText > | </apex:outputText>
+                                         &nbsp;&nbsp;
+                                         <apex:commandLink value="Select" action="{!selectPayment}" style="color: #fff;" styleClass="btn btn-primary" target="_parent">
+                                             <apex:param name="contIdParam" value="{!p.Id}" assignTo="{!optionId}"/>
+                                         </apex:commandLink>
+                                     </td>
+                                     <td>
+                                             {!p.Payment_Type__c}
+                                     </td>
+                                     <td>
+                                             ${!p.Original_Amount__c}
+                                     </td>
+                                     <td>
+                                             {!p.Interest_Rate__c}
+                                     </td>
+                                     <td>
+                                             {!p.Amortized_Term__c}
+                                     </td>
+                                     <td>
+                                             ${!p.Payment_Amount__c}
+                                     </td>
+                                 </tr>
+                             </apex:repeat>
+                         </tbody>
+                     </table>
+                 </apex:outputPanel>
+                 <apex:outputPanel rendered="{!showMessage}">
+                     <div>No Payment Options have been created yet.</div>
+                 </apex:outputPanel>
+             </div>
+         </div>
+    </apex:form>
+</apex:component>
