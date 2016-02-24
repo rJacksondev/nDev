@@ -1,0 +1,37 @@
+{!REQUIRESCRIPT("/soap/ajax/31.0/connection.js")} 
+
+try{ 
+
+var c = new sforce.SObject("LLC_BI__Loan__c"); 
+c.id = "{!LLC_BI__Loan__c.Id}"; 
+c.LLC_BI__Stage__c = "Processing"; 
+result = sforce.connection.update([c]); 
+
+var taskToCreate = new sforce.SObject("Task"); 
+
+taskToCreate.OwnerId = "{!$User.Id}"; 
+taskToCreate.WhatId = "{!LLC_BI__Loan__c.Id}"; 
+taskToCreate.Subject = "Client has accepted the deal, please engage attorney."; 
+taskToCreate.ActivityDate = new Date(); 
+
+taskToCreate.Priority = "High"; 
+taskToCreate.Status = "Not Started"; 
+
+result = sforce.connection.create([taskToCreate]); 
+
+if(result[0].success == "true"){ 
+location.reload(); 
+} 
+else{ 
+alert( 
+"An Error has Occurred. Error: \r\n" + 
+result[0].errors.message 
+); 
+} 
+} 
+catch(e){ 
+alert( 
+"An Un-expected Error has Occurred. Error: \r\n" + 
+e 
+); 
+}
