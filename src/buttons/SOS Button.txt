@@ -1,0 +1,108 @@
+{!REQUIRESCRIPT('/soap/ajax/25.0/connection.js')} 
+{!REQUIRESCRIPT('/soap/ajax/25.0/apex.js')} 
+
+if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NC') {
+   window.open("http://www.secretary.state.nc.us/search/index/corp", "myWindow", "width=800, height=800");} 
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'AL') {   
+   window.open("http://arc-sos.state.al.us/CGI/CORPNAME.MBR/INPUT", "myWindow", "width=800, height=800");} 
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'AK') {   
+   window.open("https://www.commerce.alaska.gov/cbp/Main/CBPLSearch.aspx?mode=Corp", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'AR') {   
+   window.open("http://www.sos.arkansas.gov/corps/search_all.php", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'AZ') {   
+   window.open("http://ecorp.azcc.gov/Search", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'CA') {   
+   window.open("http://kepler.sos.ca.gov/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'CO') {   
+   window.open("http://www.sos.state.co.us/biz/BusinessEntityCriteriaExt.do", "myWindow", "width=800, height=800");} 
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'CT') {
+   window.open("http://www.concord-sots.ct.gov/CONCORD/index.jsp", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'DE') {   
+   window.open("http://www.corp.delaware.gov/directweb.shtml", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'FL') {   
+   window.open("http://www.sunbiz.org/search.html", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'GA') {   
+   window.open("https://ecorp.sos.ga.gov/BusinessSearch", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'HI') {   
+   window.open("https://hbe.ehawaii.gov/documents/search.html;jsessionid=3FC3348EBE753A2EF9EF094FD68B7402.prodapp1", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'ID') {   
+   window.open("https://www.accessidaho.org/public/sos/corp/search.html?ScriptForm.startstep=crit", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'IL') {   
+   window.open("http://www.cyberdriveillinois.com/departments/business_services/corp.html", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'IN') {   
+   window.open("https://secure.in.gov/sos/online_corps/name_search.aspx", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'IA') {   
+   window.open("http://sos.iowa.gov/search/business/(S(iienhp55zodg1o45yqwx45u1))/search.aspx", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'KS') {   
+   window.open("https://www.kansas.gov/bess/flow/main;jsessionid=F76857B9F293D0E4688C139D8BFAA343.aptcs03-inst1?execution=e1s1", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'KY') {
+   window.open("https://app.sos.ky.gov/ftsearch/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'LA') {
+   window.open("https://coraweb.sos.la.gov/CommercialSearch/CommercialSearch.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'ME') {
+   window.open("https://icrs.informe.org/nei-sos-icrs/ICRS?MainPage=x", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MD') {
+   window.open("http://sdatcert3.resiusa.org/ucc-charter/Pages/CharterSearch/default.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MA') {
+   window.open("http://corp.sec.state.ma.us/corpweb/corpsearch/CorpSearch.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MI') {
+   window.open("http://www.dleg.state.mi.us/bcs_corp/sr_corp.asp", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MN') {
+   window.open("https://mblsportal.sos.state.mn.us/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MO') {
+   window.open("https://bsd.sos.mo.gov/BusinessEntity/BESearch.aspx?SearchType=0", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MS') {
+   window.open("https://corp.sos.ms.gov/corp/portal/c/page/corpBusinessIdSearch/portal.aspx?#clear=1", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'MT') {
+   window.open("https://app.mt.gov/bes/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NE') {
+   window.open("https://www.nebraska.gov/sos/corp/corpsearch.cgi?nav=search", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NV') {
+   window.open("http://nvsos.gov/sosentitysearch/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NJ') {
+   window.open("https://www.njportal.com/DOR/BusinessNameSearch/Search/BusinessName", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NM') {
+   window.open("https://portal.sos.state.nm.us/corps/(S(qyofx2mrt5morjecvgdboujl))/Corplookup/Lookdn.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NH') {
+   window.open("https://www.sos.nh.gov/corporate/soskb/csearch.asp", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'NY') {
+   window.open("http://www.dos.ny.gov/corps/bus_entity_search.html", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'ND') {
+   window.open("https://apps.nd.gov/sc/busnsrch/busnSearch.htm", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'OH') {
+   window.open("http://www5.sos.state.oh.us/ords/f?p=100:1:0:::::", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'OK') {
+   window.open("https://www.sos.ok.gov/business/corp/records.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'OR') {
+   window.open("http://egov.sos.state.or.us/br/pkg_web_name_srch_inq.login", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'PA') {
+   window.open("https://www.corporations.pa.gov/Search/CorpSearch", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'RI') {
+   window.open("http://ucc.state.ri.us/CorpSearch/CorpSearchInput.asp", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'SC') {
+   window.open("http://www.sos.sc.gov/Business_Filings/Search_Business_Filings", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'SD') {
+   window.open("https://sos.sd.gov/business/search.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'TN') {
+   window.open("https://tnbear.tn.gov/Ecommerce/FilingSearch.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'TX') {
+   window.open("http://www.sos.state.tx.us/corp/sosda/index.shtml", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'UT') {
+   window.open("https://secure.utah.gov/bes/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'VT') {
+   window.open("https://www.vtsosonline.com/online/BusinessInquire/", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'VA') {
+   window.open("http://www.scc.virginia.gov/clk/bussrch.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'WA') {
+   window.open("http://www.sos.wa.gov/corps/search.aspx?m=undefined", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'WI') {
+   window.open("https://www.wdfi.org/apps/CorpSearch/Search.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'WY') {
+   window.open("https://wyobiz.wy.gov/Business/FilingSearch.aspx", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'DC') {
+   window.open("https://corp.dcra.dc.gov/Account.aspx/LogOn?ReturnUrl=%2f", "myWindow", "width=800, height=800");}
+else if ('{!Account.LLCLP__State_of_Incorporation__c}' == 'WV') {
+   window.open("http://apps.sos.wv.gov/business/corporations/", "myWindow", "width=800, height=800");}
+else { 
+   alert("Secretary of State search is not available for this Account. Please update the State of Organization and try again."); 
+}
